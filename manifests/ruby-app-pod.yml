@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-ruby-app-pod
+  labels:
+    name: my-ruby-app-pod
+    environment: staging
+spec:
+  containers:
+  - image: leprechaun/ecs-playground-mad-walking-skeleton:master-5
+    name: backend-ruby-app
+    env:
+      - name: TREASURE_LOCATION
+        value: under the sink
+    ports:
+      - containerPort: 80
+        name: http
