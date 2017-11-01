@@ -1,17 +1,32 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: my-ruby-app-pod
+  name: nginx-static-app-on-k8s
   labels:
-    name: my-ruby-app-pod
+    name: nginx-static-app-on-k8s
     environment: staging
+    arbitrary-key: arbitrary-value
 spec:
   containers:
-  - image: leprechaun/ecs-playground-mad-walking-skeleton:master-5
-    name: backend-ruby-app
+  - image: leprechaun/nginx-static-app-on-k8s:e2c53626
+    name: nginx-static-app-on-k8s
     env:
-      - name: TREASURE_LOCATION
-        value: under the sink
+      - name: A_PASSWORD_IN_PLAINTEXT
+        value: hunter2
     ports:
-      - containerPort: 80
+      - containerPort: 8080
         name: http
+    volumeMounts:
+    - name: my-volume
+      mountPath: /data/
+    livenessProbe:
+      httpGet:
+        path: /
+        port: 8080
+    readinessProbe:
+      httpGet:
+        path: /
+        port: 8080
+  volumes:
+  - name: my-volume
+    emptyDir: {}
