@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: who-am-i
+spec:
+  completions: 10
+  template:
+    metadata:
+      name: whoami
+    spec:
+      containers:
+      - name: whoami
+        image: debian:9
+        command: ["whoami"]
+      restartPolicy: Never
