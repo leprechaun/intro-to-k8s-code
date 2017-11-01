@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: nginx-static-app-on-k8s
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+spec:
+  backend:
+    serviceName: default-http-backend
+    servicePort: 80
+  rules:
+  - host: nginx-static-app-on-k8s.k8s.fscker.org
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: nginx-static-app-on-k8s
+          servicePort: 80

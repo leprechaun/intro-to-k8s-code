@@ -1,0 +1,44 @@
+apiVersion: extensions/v1beta1 # for versions before 1.6.0 use extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nginx-static-app-on-k8s
+  labels:
+    application-name: nginx-statc-app-on-k8s
+    environment: staging
+    arbitrary-key: arbitrary-value
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      application-name: nginx-static-app-on-k8s
+  template:
+    metadata:
+      name: nginx-static-app-on-k8s
+      labels:
+        application-name: nginx-static-app-on-k8s
+        environment: staging
+        arbitrary-key: arbitrary-value
+    spec:
+      containers:
+      - image: leprechaun/nginx-static-app-on-k8s:e2c53626
+        name: nginx-static-app-on-k8s
+        env:
+          - name: A_PASSWORD_IN_PLAINTEXT
+            value: hunter2
+        ports:
+          - containerPort: 8080
+            name: http
+        volumeMounts:
+        - name: my-volume
+          mountPath: /data/
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+      volumes:
+      - name: my-volume
+        emptyDir: {}

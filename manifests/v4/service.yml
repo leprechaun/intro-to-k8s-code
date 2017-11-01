@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: nginx-static-app-on-k8s
+spec:
+  selector:
+    application-name: nginx-static-app-on-k8s
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
