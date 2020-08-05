@@ -1,14 +1,14 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: nginx-static-app-on-k8s-headless
+  name: demo-app-headless
 spec:
   clusterIP: None
   selector:
-    app.kubernetes.io/instance: nginx-static-app-test
-    app.kubernetes.io/name: nginx-static-app
+    app.kubernetes.io/instance: demo-app-test
+    app.kubernetes.io/name: demo-app
   ports:
   - protocol: TCP
     port: 80
-    targetPort: 8080
+    targetPort: 5000
     name: http
