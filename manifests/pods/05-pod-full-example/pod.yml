@@ -3,7 +3,6 @@ kind: Pod
 metadata:
   name: nginx-static-app-on-k8s
   labels:
-    name: nginx-static-app-on-k8s
     environment: staging
     arbitrary-key: arbitrary-value
 spec:
@@ -19,10 +18,12 @@ spec:
     volumeMounts:
     - name: my-volume
       mountPath: /data/
+    # When to restart the container
     livenessProbe:
       httpGet:
         path: /
         port: 8080
+    # When to start sending traffic
     readinessProbe:
       httpGet:
         path: /

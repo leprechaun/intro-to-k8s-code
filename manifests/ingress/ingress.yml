@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  labels:
+    app.kubernetes.io/instance: nginx-static-app-test
+    app.kubernetes.io/managed-by: nginx-static-app
+  name: nginx-static-app-test
+spec:
+  rules:
+  - host: nginx-static-app.k8s.fscker.org
+    http:
+      paths:
+      - backend:
+          serviceName: nginx-static-app-on-k8s
+          servicePort: http
+        path: /

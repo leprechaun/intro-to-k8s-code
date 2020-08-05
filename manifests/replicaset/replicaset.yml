@@ -1,23 +1,21 @@
-apiVersion: extensions/v1beta1 # for versions before 1.6.0 use extensions/v1beta1
+apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
-  name: nginx-static-app-on-k8s
+  name: nginx-static-app
   labels:
-    application-name: nginx-statc-app-on-k8s
-    environment: staging
-    arbitrary-key: arbitrary-value
+    app.kubernetes.io/instance: nginx-static-app-test
+    app.kubernetes.io/name: nginx-static-app
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      application-name: nginx-static-app-on-k8s
+      app.kubernetes.io/instance: nginx-static-app-test
+      app.kubernetes.io/name: nginx-static-app
   template:
     metadata:
-      name: nginx-static-app-on-k8s
       labels:
-        application-name: nginx-static-app-on-k8s
-        environment: staging
-        arbitrary-key: arbitrary-value
+        app.kubernetes.io/instance: nginx-static-app-test
+        app.kubernetes.io/name: nginx-static-app
     spec:
       containers:
       - image: leprechaun/nginx-static-app-on-k8s:e2c53626
@@ -28,9 +26,6 @@ spec:
         ports:
           - containerPort: 8080
             name: http
-        volumeMounts:
-        - name: my-volume
-          mountPath: /data/
         livenessProbe:
           httpGet:
             path: /
@@ -46,7 +41,3 @@ spec:
           limits:
             memory: "128Mi"
             cpu: "500m"
-
-      volumes:
-      - name: my-volume
-        emptyDir: {}

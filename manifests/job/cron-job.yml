@@ -1,0 +1,22 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: who-am-i
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: whoami
+            image: debian:9
+            command: ["whoami"]
+            resources:
+              requests:
+                memory: "64Mi"
+                cpu: "250m"
+              limits:
+                memory: "128Mi"
+                cpu: "500m"
+          restartPolicy: OnFailure

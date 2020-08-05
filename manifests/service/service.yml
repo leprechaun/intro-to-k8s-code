@@ -4,8 +4,10 @@ metadata:
   name: nginx-static-app-on-k8s
 spec:
   selector:
-    application-name: nginx-static-app-on-k8s
+    app.kubernetes.io/instance: nginx-static-app-test
+    app.kubernetes.io/name: nginx-static-app
   ports:
   - protocol: TCP
     port: 80
     targetPort: 8080
+    name: http

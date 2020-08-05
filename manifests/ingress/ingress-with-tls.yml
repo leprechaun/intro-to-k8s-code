@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  labels:
+    app.kubernetes.io/instance: nginx-static-app-test
+    app.kubernetes.io/managed-by: nginx-static-app
+  annotations:
+    cert-manager.io/cluster-issuer: lets-encrypt-prod
+  name: nginx-static-app-test-with-tls
+spec:
+  rules:
+  - host: nginx-static-app-with-tls.k8s.fscker.org
+    http:
+      paths:
+      - backend:
+          serviceName: nginx-static-app-on-k8s
+          servicePort: http
+        path: /
+  tls:
+  - hosts:
+    - nginx-static-app-with-tls.k8s.fscker.org
+    secretName: nginx-static-app-with-tls-k8s-fscker-org
+

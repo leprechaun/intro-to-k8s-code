@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-static-app-on-k8s
+  labels:
+    environment: staging
+    arbitrary-key: arbitrary-value
+spec:
+  containers:
+  - image: leprechaun/nginx-static-app-on-k8s:e2c53626
+    name: nginx-static-app-on-k8s
+    ports:
+      - containerPort: 8080
+        name: http
+    livenessProbe:
+      httpGet:
+        path: /
+        port: 8080
+    readinessProbe:
+      httpGet:
+        path: /
+        port: 8080
