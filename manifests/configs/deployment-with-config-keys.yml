@@ -23,7 +23,7 @@ spec:
         app.kubernetes.io/name: demo-app
     spec:
       containers:
-        - image: registry.k8s.fscker.org/demo-app:0.1.15-87fcf4ea
+        - image: leprechaun/demo-app:0.1.15-87fcf4ea
           name: demo-app
           env:
             - name: A_PASSWORD_IN_PLAINTEXT

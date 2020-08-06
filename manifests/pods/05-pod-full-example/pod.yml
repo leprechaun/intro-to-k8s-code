@@ -6,7 +6,7 @@ metadata:
     arbitrary-key: arbitrary-value
 spec:
   containers:
-  - image: registry.k8s.fscker.org/demo-app:0.1.14-67911c24
+  - image: leprechaun/demo-app:0.1.14-67911c24
     name: demo-app
     env:
       - name: A_PASSWORD_IN_PLAINTEXT
